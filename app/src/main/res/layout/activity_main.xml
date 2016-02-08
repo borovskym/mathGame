@@ -42,15 +42,17 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_ng"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button_ng" />
+        android:background="@drawable/button"
+        android:text="New Game"
+        android:textColor="@color/text_c" />
 
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_hs"
@@ -58,7 +60,9 @@
         android:layout_alignRight="@+id/button_ng"
         android:layout_alignEnd="@+id/button_ng"
         android:layout_marginTop="40dp"
-        android:background="@drawable/button_hs" />
+        android:background="@drawable/button"
+        android:textColor="@color/text_c"
+        android:text="High Score" />
 
 
 </RelativeLayout>

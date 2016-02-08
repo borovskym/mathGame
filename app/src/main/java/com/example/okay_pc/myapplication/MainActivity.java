@@ -9,13 +9,13 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton button1;
+    Button button1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button1 = (ImageButton) findViewById(R.id.button_ng);
+        button1 = (Button) findViewById(R.id.button_ng);
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 changeActivity();

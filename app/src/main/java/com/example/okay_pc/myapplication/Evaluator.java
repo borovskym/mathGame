@@ -67,7 +67,6 @@ public class Evaluator {
 
         for (int i = 0; i < GameScreen.getCurrentEquationMembersAmount(); i++) {
             String buttonText = equationNumbers.get(i).getText().toString();
-            Log.d("Evaluator", "Button text: " + buttonText);
             equationNumberValues.add(Integer.parseInt(buttonText));
         }
 

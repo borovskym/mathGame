@@ -1,12 +1,11 @@
 package com.example.okay_pc.myapplication;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -23,8 +22,10 @@ public class GameScreen extends AppCompatActivity {
     private static final int optionAmount = 5;
     private static final int equationMembersAmount = 4;
     private static int currentEquationMembersAmount = 2;
+    private boolean gameFinished;
 
     private GameMaster gm;
+    private Handler handler;
 
 
     public static TextView getResult() {
@@ -68,7 +69,9 @@ public class GameScreen extends AppCompatActivity {
         equationNumbers = getEquationNumbersReference();
         equationSigns = getEquationSignsReference();
         options = getOptionsReference();
+        gameFinished = false;
         gm = new GameMaster();
+        handler = new Handler();
         gm.setGameMode(GameMode.ADDITION);
 
         gm.startGame();
@@ -122,6 +125,10 @@ public class GameScreen extends AppCompatActivity {
     }
 
     private void equationNumberPressed(View v) {
+        if (gameFinished) {
+            return;
+        }
+
         Button b = (Button) v;
 
         for (int i = 0; i < optionAmount; i++) {
@@ -136,6 +143,10 @@ public class GameScreen extends AppCompatActivity {
     }
 
     private void optionNumberPressed(View v) {
+        if (gameFinished) {
+            return;
+        }
+
         Button b = (Button) v;
 
         for (int i = 0; i < currentEquationMembersAmount; i++) {
@@ -149,7 +160,15 @@ public class GameScreen extends AppCompatActivity {
         }
 
         if (isEquationFull()) {
-            gm.levelCompleted();
+            gameFinished = true;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    gm.levelCompleted();
+                    gameFinished = false;
+                }
+            }, 500);
+            //gm.levelCompleted();
         }
     }
 

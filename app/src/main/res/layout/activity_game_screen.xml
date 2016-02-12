@@ -12,17 +12,16 @@
 
     <ProgressBar
         android:id="@+id/circularProgressbar"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         style="?android:attr/progressBarStyleHorizontal"
         android:indeterminate="false"
-        android:progress="75"
-        android:max="100"
-        android:secondaryProgress="100"
+        android:progress="0"
+        android:max="1000"
+        android:secondaryProgress="1000"
         android:progressDrawable="@drawable/circular"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -38,10 +37,21 @@
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:text="0"
+            android:id="@+id/b_option3"
+            android:textSize="25sp"
+            android:textColor="@color/text_c"
+            android:background="@drawable/b_num" />
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:text="0"
             android:id="@+id/b_option1"
             android:textSize="25sp"
             android:textColor="@color/text_c"
-            android:background="@color/b_active" />
+            android:background="@drawable/b_num" />
 
         <Button
             android:layout_width="60dp"
@@ -52,18 +62,7 @@
             android:id="@+id/b_option2"
             android:textSize="25sp"
             android:textColor="@color/text_c"
-            android:background="@color/b_active" />
-
-        <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
-            android:id="@+id/b_option3"
-            android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@color/b_active" />
+            android:background="@drawable/b_num" />
 
         <Button
             android:layout_width="60dp"
@@ -74,7 +73,7 @@
             android:id="@+id/b_option4"
             android:textSize="25sp"
             android:textColor="@color/text_c"
-            android:background="@color/b_active" />
+            android:background="@drawable/b_num" />
 
         <Button
             android:layout_width="60dp"
@@ -85,7 +84,7 @@
             android:id="@+id/b_option5"
             android:textSize="25sp"
             android:textColor="@color/text_c"
-            android:background="@color/b_active" />
+            android:background="@drawable/b_num" />
     </LinearLayout>
 
     <LinearLayout

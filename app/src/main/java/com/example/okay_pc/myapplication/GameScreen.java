@@ -13,8 +13,6 @@ import java.util.ArrayList;
 public class GameScreen extends AppCompatActivity {
 
     //TODO: check if can be made into singleton
-    ProgressBar pBar;
-    int pStatus = 0;
     private static TextView result;
     private static TextView score;
     private static ArrayList<Button> equationNumbers;
@@ -65,34 +63,6 @@ public class GameScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
-        pBar = (ProgressBar) findViewById(R.id.circularProgressbar);
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                while (pStatus < 100) {
-                    pStatus += 1;
-
-                    handler.post(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            // TODO Auto-generated method stub
-                            pBar.setProgress(pStatus);
-                        }
-                    });
-                    try {
-                        // Sleep for 200 milliseconds.
-                        // Just to display the progress slowly
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
 
         result = (TextView) findViewById(R.id.tv_result);
         score = (TextView) findViewById(R.id.tv_score_value);

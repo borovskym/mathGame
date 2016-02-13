@@ -1,11 +1,11 @@
 package com.example.okay_pc.myapplication;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ public class GameScreen extends AppCompatActivity {
     private static final int optionAmount = 5;
     private static final int equationMembersAmount = 4;
     private static int currentEquationMembersAmount = 2;
+    private static GameMode gameMode;
     private boolean gameFinished;
 
     private GameMaster gm;
@@ -52,6 +53,10 @@ public class GameScreen extends AppCompatActivity {
         return currentEquationMembersAmount;
     }
 
+    public static GameMode getGameMode() {
+        return gameMode;
+    }
+
     public static void increaseDifficulty() {
         equationSigns.get(currentEquationMembersAmount - 1).setVisibility(View.VISIBLE);
         equationNumbers.get(currentEquationMembersAmount).setVisibility(View.VISIBLE);
@@ -64,17 +69,21 @@ public class GameScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
+        setReferences();
+        setGameMode();
+        gameFinished = false;
+        gm = new GameMaster();
+        handler = new Handler();
+
+        gm.startGame();
+    }
+
+    private void setReferences() {
         result = (TextView) findViewById(R.id.tv_result);
         score = (TextView) findViewById(R.id.tv_score_value);
         equationNumbers = getEquationNumbersReference();
         equationSigns = getEquationSignsReference();
         options = getOptionsReference();
-        gameFinished = false;
-        gm = new GameMaster();
-        handler = new Handler();
-        gm.setGameMode(GameMode.ADDITION);
-
-        gm.startGame();
     }
 
     private ArrayList<Button> getEquationNumbersReference() {
@@ -89,7 +98,6 @@ public class GameScreen extends AppCompatActivity {
                     equationNumberPressed(v);
                 }
             });
-
         }
 
         return equationNumbers;
@@ -122,6 +130,11 @@ public class GameScreen extends AppCompatActivity {
         }
 
         return options;
+    }
+
+    private void setGameMode() {
+        Intent intent = getIntent();
+        gameMode = (GameMode) intent.getSerializableExtra("gameMode");
     }
 
     private void equationNumberPressed(View v) {
@@ -160,16 +173,20 @@ public class GameScreen extends AppCompatActivity {
         }
 
         if (isEquationFull()) {
-            gameFinished = true;
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    gm.levelCompleted();
-                    gameFinished = false;
-                }
-            }, 500);
-            //gm.levelCompleted();
+            evaluateLevel();
+            gm.startGame();
         }
+    }
+
+    private void evaluateLevel() {
+        gameFinished = true;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                gm.levelCompleted();
+                gameFinished = false;
+            }
+        }, 500);
     }
 
     private boolean isEquationFull() {
@@ -178,9 +195,6 @@ public class GameScreen extends AppCompatActivity {
                 return false;
             }
         }
-
         return true;
     }
-
-
 }

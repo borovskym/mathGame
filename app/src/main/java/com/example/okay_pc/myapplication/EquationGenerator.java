@@ -21,11 +21,8 @@ public class EquationGenerator {
 
     public EquationGenerator() {
         difficulty = 0;
-        random = new Random();
-    }
-
-    public void setGameMode(GameMode mode) {
-        this.gameMode = mode;
+        this.random = new Random();
+        this.gameMode = GameScreen.getGameMode();
     }
 
     public static void increaseDifficulty() {

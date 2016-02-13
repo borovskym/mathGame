@@ -19,12 +19,9 @@ public class Evaluator {
     private GameMode gameMode;
 
     public Evaluator() {
-        result = GameScreen.getResult();
-        equationNumbers = GameScreen.getEquationNumbers();
-    }
-
-    public void setGameMode(GameMode mode) {
-        this.gameMode = mode;
+        this.result = GameScreen.getResult();
+        this.equationNumbers = GameScreen.getEquationNumbers();
+        this.gameMode = GameScreen.getGameMode();
     }
 
     public boolean isEquationCorrect() {

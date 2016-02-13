@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeActivity() {
         Intent intent = new Intent(this, GameScreen.class);
+        intent.putExtra("gameMode", GameMode.ADDITION);
         startActivity(intent);
     }
 }

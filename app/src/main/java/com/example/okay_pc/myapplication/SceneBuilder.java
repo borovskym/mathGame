@@ -22,10 +22,6 @@ public class SceneBuilder {
 
     private EquationGenerator eg;
 
-    public void setGameMode(GameMode mode) {
-        eg.setGameMode(mode);
-    }
-
     public SceneBuilder() {
         eg = new EquationGenerator();
         result = GameScreen.getResult();
@@ -34,13 +30,16 @@ public class SceneBuilder {
     }
 
     public void createLevel() {
-        eg.generate(GameScreen.getCurrentEquationMembersAmount());
-        resultValue = eg.getResultValue();
-        optionValues = eg.getOptionValues();
-
+        generateNumbers();
         setupResult();
         setupEquationNumbers();
         setupOptions();
+    }
+
+    private void generateNumbers() {
+        eg.generate(GameScreen.getCurrentEquationMembersAmount());
+        resultValue = eg.getResultValue();
+        optionValues = eg.getOptionValues();
     }
 
     private void setupResult() {

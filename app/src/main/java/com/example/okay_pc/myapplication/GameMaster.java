@@ -1,6 +1,7 @@
 package com.example.okay_pc.myapplication;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Akademia SOVY project
@@ -27,11 +28,6 @@ public class GameMaster {
         timer = new Timer();
     }
 
-    public void setGameMode(GameMode mode) {
-        sb.setGameMode(mode);
-        ev.setGameMode(mode);
-    }
-
     public void startGame() {
         startLevel();
     }
@@ -42,7 +38,6 @@ public class GameMaster {
             levelsCompleted++;
             updateScore();
             checkEquationMembersAmount();
-            startLevel();
             EquationGenerator.increaseDifficulty();
         } else {
             gameOver();
@@ -62,7 +57,7 @@ public class GameMaster {
 
     private void gameOver() {
         //TODO: Add GAME OVER screen
-        startLevel(); //TODO: Debug purposes, remove after Game over is created
+        //TODO: Debug purposes, remove after Game over is created
     }
 
     private void checkEquationMembersAmount() {

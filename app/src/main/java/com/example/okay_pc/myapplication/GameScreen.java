@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class GameScreen extends AppCompatActivity {
     private static ArrayList<Button> equationNumbers;
     private static ArrayList<TextView> equationSigns;
     private static ArrayList<Button> options;
+    private static ProgressBar timer;
 
     private static final int optionAmount = 5;
     private static final int equationMembersAmount = 4;
@@ -43,6 +45,10 @@ public class GameScreen extends AppCompatActivity {
 
     public static ArrayList<Button> getOptions() {
         return options;
+    }
+
+    public static ProgressBar getTimer() {
+        return timer;
     }
 
     public static int getOptionAmount() {
@@ -84,6 +90,7 @@ public class GameScreen extends AppCompatActivity {
         equationNumbers = getEquationNumbersReference();
         equationSigns = getEquationSignsReference();
         options = getOptionsReference();
+        timer = (ProgressBar) findViewById(R.id.circularProgressbar);
     }
 
     private ArrayList<Button> getEquationNumbersReference() {
@@ -174,7 +181,6 @@ public class GameScreen extends AppCompatActivity {
 
         if (isEquationFull()) {
             evaluateLevel();
-            gm.startGame();
         }
     }
 
@@ -185,6 +191,7 @@ public class GameScreen extends AppCompatActivity {
             public void run() {
                 gm.levelCompleted();
                 gameFinished = false;
+                gm.startGame();
             }
         }, 500);
     }

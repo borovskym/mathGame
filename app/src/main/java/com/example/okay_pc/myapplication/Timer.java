@@ -13,16 +13,27 @@ import android.widget.ProgressBar;
  */
 public class Timer extends GameScreen{
 
-    ProgressBar pBar; // daj private
-    int pStatus = 0; // daj private
+    private ProgressBar pBar; // daj private
+    private int pStatus; // daj private
     private Handler handler; // Handler sa nikde neinicializuje, pozri Konstruktor
     //TODO: vytvorit premennu kde bude pocet sekund a aj setter
 
     //TODO: Vytvor konstruktor v ktorom zrobis inicializaciu handlera a ostatne veci ktore sa robia len raz
 
+    public Timer() {
+        this.pBar = GameScreen.getTimer();
+        this.pStatus = 0;
+        this.handler =  new Handler();
+    }
+
+    private void setpStatus(int pStatus) {
+        this.pStatus = pStatus;
+    }
+
     public void stopTime() {
         // toto by malo zastavit thread v startTime namiesto toho to ani neviem co robi
-            AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
+
+    /*      AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
             helpBuilder.setTitle("Game over");
             helpBuilder.setMessage("Much wow such skill\nYour score: "+getScore());
             helpBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -34,14 +45,16 @@ public class Timer extends GameScreen{
 
             AlertDialog helpDialog = helpBuilder.create();
             helpDialog.show();
+    */
     }
 
     public void rewind() {
         pBar.setProgress(0); // myslim, ze toto Ti staci len nastavit pStatus na 0, urob to cez setter ale
+        setpStatus(0);
     }
 
     public void startTime() {
-        pBar = (ProgressBar) findViewById(R.id.circularProgressbar); // toto ma byt v konstruktore
+        //pBar = (ProgressBar) findViewById(R.id.circularProgressbar); // toto ma byt v konstruktore
         while (pStatus < 1000) { // prerobit cez vzorec na pocet sekund
             pStatus += 1;
 

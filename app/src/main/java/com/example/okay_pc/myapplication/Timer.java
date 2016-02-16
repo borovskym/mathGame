@@ -1,7 +1,5 @@
 package com.example.okay_pc.myapplication;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Handler;
 import android.widget.ProgressBar;
 
@@ -16,6 +14,8 @@ public class Timer extends GameScreen{
     private ProgressBar pBar; // daj private
     private int pStatus; // daj private
     private Handler handler; // Handler sa nikde neinicializuje, pozri Konstruktor
+    private Thread timerThread;
+
     //TODO: vytvorit premennu kde bude pocet sekund a aj setter
 
     //TODO: Vytvor konstruktor v ktorom zrobis inicializaciu handlera a ostatne veci ktore sa robia len raz
@@ -24,6 +24,8 @@ public class Timer extends GameScreen{
         this.pBar = GameScreen.getTimer();
         this.pStatus = 0;
         this.handler =  new Handler();
+        this.pBar = (ProgressBar) findViewById(R.id.circularProgressbar);
+        this.timerThread = new Thread();
     }
 
     private void setpStatus(int pStatus) {
@@ -32,29 +34,14 @@ public class Timer extends GameScreen{
 
     public void stopTime() {
         // toto by malo zastavit thread v startTime namiesto toho to ani neviem co robi
-
-    /*      AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
-            helpBuilder.setTitle("Game over");
-            helpBuilder.setMessage("Much wow such skill\nYour score: "+getScore());
-            helpBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-
-            AlertDialog helpDialog = helpBuilder.create();
-            helpDialog.show();
-    */
+        timerThread.interrupt();
     }
 
     public void rewind() {
-        pBar.setProgress(0); // myslim, ze toto Ti staci len nastavit pStatus na 0, urob to cez setter ale
         setpStatus(0);
     }
 
     public void startTime() {
-        //pBar = (ProgressBar) findViewById(R.id.circularProgressbar); // toto ma byt v konstruktore
         while (pStatus < 1000) { // prerobit cez vzorec na pocet sekund
             pStatus += 1;
 
@@ -70,7 +57,8 @@ public class Timer extends GameScreen{
                  * tymto sleepnes aj nas thread na ktorom bezi hra, skus to dat na osobitny thread
                  * a nastav ho ako daemon aby sa ukoncoval spolu s appkou lebo inak nam to bude crashovat
                  */
-                Thread.sleep(10);
+                if(!timerThread.interrupted())
+                    timerThread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -78,7 +66,8 @@ public class Timer extends GameScreen{
         stopTime(); // toto by malo volat vyslat do GameMastra signal a ten by mal mat event listener ktory ho zachyti
     }
 
-   /* public int getScoreValue(){
+    public int getScoreValue(){
         //vrati aktualny pStatus
-    }*/
+        return pStatus;
+    }
 }

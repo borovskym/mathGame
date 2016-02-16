@@ -15,6 +15,7 @@ public class Timer extends GameScreen{
     private int pStatus; // daj private
     private Handler handler; // Handler sa nikde neinicializuje, pozri Konstruktor
     private Thread timerThread;
+    private int pTime;
 
     //TODO: vytvorit premennu kde bude pocet sekund a aj setter
 
@@ -26,7 +27,10 @@ public class Timer extends GameScreen{
         this.handler =  new Handler();
         this.pBar = (ProgressBar) findViewById(R.id.circularProgressbar);
         this.timerThread = new Thread();
+        this.pTime = 0;
     }
+
+    private void setpTime(int pTime){ this.pTime = pTime; }
 
     private void setpStatus(int pStatus) {
         this.pStatus = pStatus;
@@ -34,6 +38,7 @@ public class Timer extends GameScreen{
 
     public void stopTime() {
         // toto by malo zastavit thread v startTime namiesto toho to ani neviem co robi
+        getScoreValue();
         timerThread.interrupt();
     }
 

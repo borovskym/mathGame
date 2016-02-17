@@ -1,5 +1,6 @@
 package com.example.okay_pc.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class GameScreen extends AppCompatActivity {
 
     //TODO: check if can be made into singleton
+    private static Context context;
     private static TextView result;
     private static TextView score;
     private static ArrayList<Button> equationNumbers;
@@ -25,11 +27,14 @@ public class GameScreen extends AppCompatActivity {
     private static final int equationMembersAmount = 4;
     private static int currentEquationMembersAmount = 2;
     private static GameMode gameMode;
-    private boolean gameFinished;
+    private static boolean gameFinished;
 
     private GameMaster gm;
     private Handler handler;
 
+    public static Context getContext(){
+        return context;
+    }
 
     public static TextView getResult() {
         return result;
@@ -63,6 +68,10 @@ public class GameScreen extends AppCompatActivity {
         return gameMode;
     }
 
+    public static boolean getGameFinished() {
+        return gameFinished;
+    }
+
     public static void increaseDifficulty() {
         equationSigns.get(currentEquationMembersAmount - 1).setVisibility(View.VISIBLE);
         equationNumbers.get(currentEquationMembersAmount).setVisibility(View.VISIBLE);
@@ -81,10 +90,11 @@ public class GameScreen extends AppCompatActivity {
         gm = new GameMaster();
         handler = new Handler();
 
-        gm.startGame();
+        gm.startLevel();
     }
 
     private void setReferences() {
+        context = getBaseContext();
         result = (TextView) findViewById(R.id.tv_result);
         score = (TextView) findViewById(R.id.tv_score_value);
         equationNumbers = getEquationNumbersReference();
@@ -191,7 +201,6 @@ public class GameScreen extends AppCompatActivity {
             public void run() {
                 gm.levelCompleted();
                 gameFinished = false;
-                gm.startGame();
             }
         }, 500);
     }

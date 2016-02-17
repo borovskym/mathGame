@@ -15,9 +15,9 @@ public class GameMaster {
     private static final int normal = 50;
     private static final int hard = 100;
 
-    Evaluator ev;
-    SceneBuilder sb;
-    Timer timer;
+    private Evaluator ev;
+    private SceneBuilder sb;
+    private Timer timer;
 
     private int levelsCompleted;
 
@@ -25,11 +25,7 @@ public class GameMaster {
         levelsCompleted = 1;
         ev = new Evaluator();
         sb = new SceneBuilder();
-        timer = new Timer();
-    }
-
-    public void startGame() {
-        startLevel();
+        timer = new Timer(this);
     }
 
     public void levelCompleted() {
@@ -39,6 +35,7 @@ public class GameMaster {
             updateScore();
             checkEquationMembersAmount();
             EquationGenerator.increaseDifficulty();
+            startLevel();
         } else {
             gameOver();
         }
@@ -49,15 +46,16 @@ public class GameMaster {
         score.setText(String.format("%d", levelsCompleted));
     }
 
-    private void startLevel() {
+    public void startLevel() {
         sb.createLevel();
-        timer.rewind();
-        timer.startTime();
+        timer.startTime(10);
     }
 
-    private void gameOver() {
+    protected void gameOver() {
         //TODO: Add GAME OVER screen
         //TODO: Debug purposes, remove after Game over is created
+        timer.stopTime();
+        Toast.makeText(GameScreen.getContext(), "GAME OVER", Toast.LENGTH_SHORT).show();
     }
 
     private void checkEquationMembersAmount() {

@@ -10,57 +10,60 @@
     tools:context="com.example.okay_pc.myapplication.MainActivity"
     android:background="@color/dark_blue">
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/frameLayout"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp">
+
+        <ImageView
+            android:contentDescription="Logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/img_logo"
+            android:background="@drawable/logo_android"
+            android:layout_gravity="center_horizontal|top" />
+    </FrameLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/img_logo"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/frameLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="104dp">
+        android:layout_marginTop="70dp">
 
         <Button
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:id="@+id/button_ng"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:background="@color/blue"
-            android:text="@string/play_button"
-            android:textSize="22sp"
-            android:textColor="@color/warm_gray" />
+            style="@style/MenuButton"
+            android:id="@+id/button1"
+            android:text="@string/play_button" />
 
         <Button
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:id="@+id/button_hs"
-            android:layout_below="@+id/button_ng"
-            android:layout_alignRight="@+id/button_ng"
-            android:layout_alignEnd="@+id/button_ng"
-            android:layout_marginTop="40dp"
-            android:background="@color/blue"
-            android:textColor="@color/warm_gray"
-            android:textSize="22sp"
+            style="@style/MenuButton"
+            android:id="@+id/button2"
+            android:layout_marginTop="30dp"
             android:text="@string/high_score_button" />
     </LinearLayout>
 
-    <ImageView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/img_logo"
-        android:background="@drawable/logo_android"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_sound"
-        android:background="@drawable/volume_android"
-        android:clickable="true"
+        android:id="@+id/ll_action_buttons"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true">
 
-
+        <ImageButton
+            android:contentDescription="Sound icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_sound"
+            android:background="@drawable/volume_android"
+            android:clickable="true"
+            android:layout_gravity="end" />
+    </LinearLayout>
 </RelativeLayout>

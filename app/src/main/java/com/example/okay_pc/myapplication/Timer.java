@@ -1,7 +1,8 @@
 package com.example.okay_pc.myapplication;
 
 import android.os.CountDownTimer;
-import android.widget.ProgressBar;
+
+import java.util.Vector;
 
 /**
  * Akademia SOVY project
@@ -9,17 +10,16 @@ import android.widget.ProgressBar;
  * Copyright - 2016
  * Created by Peter Varholak on 5. 2. 2016.
  */
-public class Timer {
+public class Timer implements ITimerSubject {
 
     private GameMaster gm;
+    private Vector<ITimerObserver> observers;
     private CountDownTimer timer;
-    private ProgressBar progress;
     private int millisToFinish;
 
     public Timer(GameMaster gm) {
         this.gm = gm;
-        progress = GameScreen.getTimer();
-        progress.setIndeterminate(false);
+        observers = new Vector<>();
     }
 
     public void stopTime() {
@@ -28,13 +28,12 @@ public class Timer {
 
     public void startTime(int seconds) {
         final int maxTime = seconds * 1000;
-        progress.setMax(maxTime);
-        progress.setSecondaryProgress(maxTime);
+        notifyObservers("setMaxTime", maxTime);
 
         timer = new CountDownTimer(maxTime, 50) {
             public void onTick(long millisUntilFinished) {
-                millisToFinish = (int)millisUntilFinished;
-                progress.setProgress(maxTime - millisToFinish);
+                millisToFinish = (int) millisUntilFinished;
+                notifyObservers("update", maxTime - millisToFinish);
             }
 
             public void onFinish() {
@@ -43,7 +42,24 @@ public class Timer {
         }.start();
     }
 
-    public int getScoreValue(){
+    public int getScoreValue() {
         return millisToFinish / 1000;
+    }
+
+    @Override
+    public void registerObserver(ITimerObserver o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(ITimerObserver o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers(String action, int value) {
+        for(ITimerObserver observer : observers){
+            observer.updateTime(action, value);
+        }
     }
 }

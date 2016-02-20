@@ -16,22 +16,14 @@ public class EquationGenerator {
 
     private int resultValue;
     private ArrayList<Integer> optionValues;
-    private GameMode gameMode;
     private Random random;
 
     public EquationGenerator() {
         difficulty = 0;
         this.random = new Random();
-        this.gameMode = GameScreen.getGameMode();
     }
 
-    public static void increaseDifficulty() {
-        if (difficulty != 100) {
-            difficulty++;
-        }
-    }
-
-    public static void resetDifficulty() {
+    public void resetDifficulty() {
         difficulty = 0;
     }
 
@@ -48,6 +40,7 @@ public class EquationGenerator {
         generateResult();
         generateFillerNumbers(equationSize);
         shuffleArrayList();
+        increaseDifficulty();
     }
 
     private void generateEquation(int equationSize) {
@@ -61,7 +54,7 @@ public class EquationGenerator {
     }
 
     private void generateResult() {
-        switch (gameMode) {
+        switch (GameMaster.getGameMode()) {
             case ADDITION: {
                 resultValue = solveAddition();
                 break;
@@ -98,7 +91,7 @@ public class EquationGenerator {
     }
 
     private void generateFillerNumbers(int equationSize) {
-        int size = GameScreen.getOptionAmount() - equationSize;
+        int size = GameMaster.MAX_OPTION_AMOUNT - equationSize;
         int randomNumber;
 
         for (int i = 0; i < size; i++) {
@@ -110,5 +103,11 @@ public class EquationGenerator {
     private void shuffleArrayList() {
         long seed = System.nanoTime();
         Collections.shuffle(optionValues, new Random(seed));
+    }
+
+    private void increaseDifficulty() {
+        if (difficulty != 100) {
+            difficulty++;
+        }
     }
 }

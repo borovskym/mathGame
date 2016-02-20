@@ -11,7 +11,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="Button">
+    <style name="GameButton">
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_marginLeft">3dp</item>
@@ -19,6 +19,13 @@
         <item name="android:text">"0"</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:background">@drawable/game_button</item>
+    </style>
+    <style name="ClickableButton" parent="@style/GameButton">
+        <item name="android:background">@drawable/game_button</item>
+    </style>
+    <style name="FreeButton" parent="@style/GameButton">
+        <item name="android:background">@drawable/game_button_free</item>
     </style>
     <style name="Sign">
         <item name="android:layout_width">20dp</item>
@@ -26,8 +33,15 @@
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">@color/text_c</item>
+        <item name="android:textColor">@color/pure_white</item>
         <item name="android:gravity">center</item>
+    </style>
+    <style name="MenuButton">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/menu_button</item>
+        <item name="android:textColor">@color/pure_white</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
 </resources>

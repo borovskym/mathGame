@@ -1,11 +1,5 @@
 package com.example.okay_pc.myapplication;
 
-import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-
 /**
  * Akademia SOVY project
  * <p/>
@@ -14,21 +8,12 @@ import java.util.ArrayList;
  */
 public class Evaluator {
 
-    private TextView result;
-    private ArrayList<Button> equationNumbers;
-    private GameMode gameMode;
-
     public Evaluator() {
-        this.result = GameScreen.getResult();
-        this.equationNumbers = GameScreen.getEquationNumbers();
-        this.gameMode = GameScreen.getGameMode();
     }
 
-    public boolean isEquationCorrect() {
-        int resultValue = Integer.parseInt(result.getText().toString());
-        ArrayList<Integer> equationNumberValues = getEquationNumberValues();
+    public boolean isEquationCorrect(int resultValue, int[] equationNumberValues) {
 
-        switch (gameMode) {
+        switch (GameMaster.getGameMode()) {
             case ADDITION: {
                 return isAdditionCorrect(resultValue, equationNumberValues);
             }
@@ -41,7 +26,7 @@ public class Evaluator {
         }
     }
 
-    private boolean isAdditionCorrect(int result, ArrayList<Integer> numbers) {
+    private boolean isAdditionCorrect(int result, int[] numbers) {
         int equationResult = 0;
         for (int number : numbers) {
             equationResult += number;
@@ -50,23 +35,12 @@ public class Evaluator {
         return (result == equationResult);
     }
 
-    private boolean isMultiplicationCorrect(int result, ArrayList<Integer> numbers) {
+    private boolean isMultiplicationCorrect(int result, int[] numbers) {
         int equationResult = 1;
         for (int number : numbers) {
             equationResult *= number;
         }
 
         return (result == equationResult);
-    }
-
-    private ArrayList<Integer> getEquationNumberValues() {
-        ArrayList<Integer> equationNumberValues = new ArrayList<>();
-
-        for (int i = 0; i < GameScreen.getCurrentEquationMembersAmount(); i++) {
-            String buttonText = equationNumbers.get(i).getText().toString();
-            equationNumberValues.add(Integer.parseInt(buttonText));
-        }
-
-        return equationNumberValues;
     }
 }

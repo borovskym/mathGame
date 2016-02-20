@@ -1,6 +1,9 @@
 package com.example.okay_pc.myapplication;
 
-import android.widget.TextView;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Handler;
+import android.widget.Button;
 import android.widget.Toast;
 
 /**
@@ -11,39 +14,49 @@ import android.widget.Toast;
  */
 public class GameMaster {
 
-    private static final int easy = 20;
-    private static final int normal = 50;
-    private static final int hard = 100;
+    //RECOMPILE IF CHANGED!
+    public static final int MAX_OPTION_AMOUNT = 5;
+    public static final int MAX_EQUATION_MEMBERS_AMOUNT = 4;
 
+    private static int currentEquationMembersAmount;
+    private int levelsCompleted;
+    private static GameMode gameMode;
+    private static boolean gameFinished;
+
+    private Activity activity;
     private Evaluator ev;
     private SceneBuilder sb;
     private Timer timer;
+    private Handler handler;
 
-    private int levelsCompleted;
+    public GameMaster(Activity activity) {
+        this.activity = activity;
+        currentEquationMembersAmount = 2;
+        levelsCompleted = 0;
+        setGameMode();
+        gameFinished = false;
 
-    public GameMaster() {
-        levelsCompleted = 1;
         ev = new Evaluator();
-        sb = new SceneBuilder();
+        sb = new SceneBuilder(activity);
         timer = new Timer(this);
+        timer.registerObserver(sb);
+        handler = new Handler();
     }
 
-    public void levelCompleted() {
-        if (ev.isEquationCorrect()) {
-            timer.stopTime();
-            levelsCompleted++;
-            updateScore();
-            checkEquationMembersAmount();
-            EquationGenerator.increaseDifficulty();
-            startLevel();
-        } else {
-            gameOver();
-        }
+    public static int getCurrentEquationMembersAmount() {
+        return currentEquationMembersAmount;
+    }
+    public static GameMode getGameMode() {
+        return gameMode;
     }
 
-    private void updateScore() {
-        TextView score = GameScreen.getScore();
-        score.setText(String.format("%d", levelsCompleted));
+    public static boolean isGameFinished() {
+        return gameFinished;
+    }
+
+    private void setGameMode() {
+        Intent intent = activity.getIntent();
+        gameMode = (GameMode) intent.getSerializableExtra("gameMode");
     }
 
     public void startLevel() {
@@ -51,18 +64,67 @@ public class GameMaster {
         timer.startTime(10);
     }
 
-    protected void gameOver() {
-        //TODO: Add GAME OVER screen
-        //TODO: Debug purposes, remove after Game over is created
-        timer.stopTime();
-        Toast.makeText(GameScreen.getContext(), "GAME OVER", Toast.LENGTH_SHORT).show();
-    }
-
-    private void checkEquationMembersAmount() {
-        if (levelsCompleted == easy || levelsCompleted == normal || levelsCompleted == hard) {
-            GameScreen.increaseDifficulty();
+    public void levelCompleted() {
+        if (ev.isEquationCorrect(sb.getResultValue(), sb.getEquationNumbersValue())) {
+            levelsCompleted++;
+            updateScore();
+            checkDifficultyIncrease();
+            startLevel();
+        } else {
+            gameOver();
         }
     }
 
-    //TODO: time listener
+    private void updateScore() {
+        sb.updateScore(levelsCompleted + timer.getScoreValue());
+    }
+
+    protected void gameOver() {
+        //TODO: Add GAME OVER screen
+        //TODO: Debug purposes, remove after Game over is created
+        //TODO: SceneBuilder?
+        Toast.makeText(activity.getBaseContext(), "GAME OVER", Toast.LENGTH_SHORT).show();
+    }
+
+    private void checkDifficultyIncrease() {
+        if (levelsCompleted == Difficulty.NORMAL.getValue() ||
+            levelsCompleted == Difficulty.HARD.getValue() ||
+            levelsCompleted == Difficulty.EXTREME.getValue())
+        {
+            sb.increaseEquationSize();
+            currentEquationMembersAmount++;
+        }
+    }
+
+    public void equationNumberPressed(Button b) {
+        if (gameFinished) {
+            return;
+        }
+
+        sb.equationNumberPressed(b);
+    }
+
+    public void optionNumberPressed(Button b) {
+        if (gameFinished) {
+            return;
+        }
+
+        sb.optionNumberPressed(b);
+
+        if (sb.isEquationFull()) {
+            evaluateLevel();
+        }
+    }
+
+    private void evaluateLevel() {
+        gameFinished = true;
+        timer.stopTime();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                levelCompleted();
+                gameFinished = false;
+            }
+        }, 500);
+    }
 }

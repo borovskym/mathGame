@@ -39,8 +39,10 @@
             android:text="0"
             android:id="@+id/b_option3"
             android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@drawable/b_num" />
+            android:textColor="#031634"
+            android:background="@drawable/b_selector"
+            android:enabled="false"
+            />
 
         <Button
             android:layout_width="60dp"
@@ -50,8 +52,10 @@
             android:text="0"
             android:id="@+id/b_option1"
             android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@drawable/b_num" />
+            android:textColor="#031634"
+            android:background="@drawable/b_selector"
+            android:enabled="false"
+            />
 
         <Button
             android:layout_width="60dp"
@@ -61,8 +65,10 @@
             android:text="0"
             android:id="@+id/b_option2"
             android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@drawable/b_num" />
+            android:textColor="#031634"
+            android:background="@drawable/b_selector"
+            android:enabled="false"
+            />
 
         <Button
             android:layout_width="60dp"
@@ -72,8 +78,10 @@
             android:text="0"
             android:id="@+id/b_option4"
             android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@drawable/b_num" />
+            android:textColor="#031634"
+            android:background="@drawable/b_selector"
+            android:enabled="false"
+            />
 
         <Button
             android:layout_width="60dp"
@@ -83,8 +91,10 @@
             android:text="0"
             android:id="@+id/b_option5"
             android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@drawable/b_num" />
+            android:textColor="#031634"
+            android:background="@drawable/b_selector"
+            android:enabled="false"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -103,8 +113,8 @@
             android:text="0"
             android:id="@+id/b_equation_element1"
             android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@color/b_active" />
+            android:textColor="#031634"
+            android:background="@drawable/b_num" />
 
         <TextView
             android:layout_width="20dp"
@@ -125,8 +135,8 @@
             android:text="0"
             android:id="@+id/b_equation_element2"
             android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@color/b_active" />
+            android:textColor="#031634"
+            android:background="@drawable/b_num" />
 
         <TextView
             android:layout_width="20dp"

@@ -7,167 +7,81 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/bg"
+    android:background="@color/dark_blue"
     tools:context="com.example.okay_pc.myapplication.GameScreen">
-
-    <ProgressBar
-        android:id="@+id/circularProgressbar"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminate="false"
-        android:progress="0"
-        android:max="20000"
-        android:secondaryProgress="20000"
-        android:progressDrawable="@drawable/circular"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/ll_options" >
 
         <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
-            android:id="@+id/b_option3"
-            android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@drawable/b_num" />
+            style="@style/Button"
+            android:id="@+id/b_option1" />
 
         <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
-            android:id="@+id/b_option1"
-            android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@drawable/b_num" />
+            style="@style/Button"
+            android:id="@+id/b_option2" />
 
         <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
-            android:id="@+id/b_option2"
-            android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@drawable/b_num" />
+            style="@style/Button"
+            android:id="@+id/b_option3" />
 
         <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
-            android:id="@+id/b_option4"
-            android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@drawable/b_num" />
+            style="@style/Button"
+            android:id="@+id/b_option4" />
 
         <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
-            android:id="@+id/b_option5"
-            android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@drawable/b_num" />
+            style="@style/Button"
+            android:id="@+id/b_option5" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout2">
+        android:layout_marginTop="50dp"
+        android:id="@+id/ll_equation"
+        android:layout_below="@+id/fl_result"
+        android:layout_centerHorizontal="true">
 
         <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
-            android:id="@+id/b_equation_element1"
-            android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@color/b_active" />
+            style="@style/Button"
+            android:id="@+id/b_equation_element1" />
 
         <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="3dp"
-            android:text="@string/equation_plus"
+            style="@style/Sign"
             android:id="@+id/tv_equation_sign1"
-            android:textSize="30sp"
-            android:textColor="@color/text_c"
-            android:gravity="center" />
+            android:text="@string/equation_plus" />
 
         <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
-            android:id="@+id/b_equation_element2"
-            android:textSize="25sp"
-            android:textColor="@color/text_c"
-            android:background="@color/b_active" />
+            style="@style/Button"
+            android:id="@+id/b_equation_element2" />
 
         <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="3dp"
-            android:text="@string/equation_plus"
+            style="@style/Sign"
             android:id="@+id/tv_equation_sign2"
-            android:textSize="30sp"
-            android:gravity="center"
+            android:text="@string/equation_plus"
             android:visibility="gone" />
 
         <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
+            style="@style/Button"
             android:id="@+id/b_equation_element3"
-            android:textSize="25sp"
             android:visibility="gone" />
 
         <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="3dp"
-            android:text="@string/equation_plus"
+            style="@style/Sign"
             android:id="@+id/tv_equation_sign3"
-            android:textSize="30sp"
-            android:gravity="center"
+            android:text="@string/equation_plus"
             android:visibility="gone" />
 
         <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
+            style="@style/Button"
             android:id="@+id/b_equation_element4"
-            android:textSize="25sp"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -176,8 +90,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:id="@+id/frameLayout">
+        android:layout_marginTop="50dp"
+        android:id="@+id/fl_result">
+
+        <ProgressBar
+            android:id="@+id/circularProgressbar"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminate="false"
+            android:progress="0"
+            android:max="20000"
+            android:secondaryProgress="20000"
+            android:progressDrawable="@drawable/circular" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -187,7 +112,7 @@
             android:id="@+id/tv_result"
             android:textSize="55sp"
             android:textColor="@color/text_c"
-            android:layout_gravity="center_horizontal|top" />
+            android:layout_gravity="center" />
 
     </FrameLayout>
 
@@ -195,7 +120,7 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout">
+        android:id="@+id/ll_score">
 
         <TextView
             android:layout_width="wrap_content"
@@ -204,7 +129,8 @@
             android:layout_marginRight="5dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/score_label"
-            android:textColor="@color/text_c"
+            android:textSize="25sp"
+            android:textColor="@color/warm_gray"
             android:id="@+id/tv_score_label" />
 
         <TextView
@@ -212,7 +138,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="0"
-            android:textColor="@color/text_c"
+            android:textSize="25sp"
+            android:textColor="@color/warm_gray"
             android:id="@+id/tv_score_value" />
     </LinearLayout>
 

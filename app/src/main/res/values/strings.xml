@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">SpeedMath</string>
+    <string name="play_button">PLAY</string>
+    <string name="high_score_button">HIGH SCORE</string>
     <string name="equation_plus">+</string>
     <string name="equation_multiply">x</string>
     <string name="score_label">Score:</string>

@@ -28,12 +28,12 @@ public class Timer implements ITimerSubject {
 
     public void startTime(int seconds) {
         final int maxTime = seconds * 1000;
-        notifyObservers("setMaxTime", maxTime);
+        setupTimer(maxTime);
 
         timer = new CountDownTimer(maxTime, 50) {
             public void onTick(long millisUntilFinished) {
                 millisToFinish = (int) millisUntilFinished;
-                notifyObservers("update", maxTime - millisToFinish);
+                updateTime(maxTime - millisToFinish);
             }
 
             public void onFinish() {
@@ -57,9 +57,16 @@ public class Timer implements ITimerSubject {
     }
 
     @Override
-    public void notifyObservers(String action, int value) {
+    public void setupTimer(int maxTime) {
         for(ITimerObserver observer : observers){
-            observer.updateTime(action, value);
+            observer.setupTimer(maxTime);
+        }
+    }
+
+    @Override
+    public void updateTime(int value) {
+        for(ITimerObserver observer : observers){
+            observer.updateTime(value);
         }
     }
 }

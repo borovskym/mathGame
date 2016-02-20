@@ -130,7 +130,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/score_label"
             android:textSize="25sp"
-            android:textColor="@color/warm_gray"
+            android:textColor="@color/pure_white"
             android:id="@+id/tv_score_label" />
 
         <TextView

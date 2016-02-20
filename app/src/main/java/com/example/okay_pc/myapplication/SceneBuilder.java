@@ -125,12 +125,13 @@ public class SceneBuilder implements ITimerObserver{
     }
 
     @Override
-    public void updateTime(String action, int value) {
-        if (action.equals("update")) {
-            res.getTimer().setProgress(value);
-        } else if (action.equals("setMaxTime")) {
-            res.getTimer().setMax(value);
-            res.getTimer().setSecondaryProgress(value);
-        }
+    public void setupTimer(int maxTime) {
+        res.getTimer().setMax(maxTime);
+        res.getTimer().setSecondaryProgress(maxTime);
+    }
+
+    @Override
+    public void updateTime(int value) {
+        res.getTimer().setProgress(value);
     }
 }

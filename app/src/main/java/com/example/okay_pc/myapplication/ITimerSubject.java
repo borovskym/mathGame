@@ -9,5 +9,6 @@ package com.example.okay_pc.myapplication;
 public interface ITimerSubject {
     void registerObserver(ITimerObserver o);
     void removeObserver(ITimerObserver o);
-    void notifyObservers(String action, int value);
+    void setupTimer(int maxTime);
+    void updateTime(int value);
 }

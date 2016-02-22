@@ -2,6 +2,9 @@ package com.example.okay_pc.myapplication;
 
 import android.os.CountDownTimer;
 
+import com.example.okay_pc.myapplication.interfaces.ITimerObserver;
+import com.example.okay_pc.myapplication.interfaces.ITimerSubject;
+
 import java.util.Vector;
 
 /**
@@ -49,11 +52,6 @@ public class Timer implements ITimerSubject {
     @Override
     public void registerObserver(ITimerObserver o) {
         observers.add(o);
-    }
-
-    @Override
-    public void removeObserver(ITimerObserver o) {
-        observers.remove(o);
     }
 
     @Override

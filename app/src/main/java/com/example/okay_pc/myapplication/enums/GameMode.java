@@ -1,4 +1,4 @@
-package com.example.okay_pc.myapplication;
+package com.example.okay_pc.myapplication.enums;
 
 /**
  * Akademia SOVY project

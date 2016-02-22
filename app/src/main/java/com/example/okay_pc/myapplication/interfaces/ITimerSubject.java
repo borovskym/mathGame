@@ -1,4 +1,4 @@
-package com.example.okay_pc.myapplication;
+package com.example.okay_pc.myapplication.interfaces;
 
 /**
  * Akademia SOVY project
@@ -6,7 +6,8 @@ package com.example.okay_pc.myapplication;
  * Copyright - 2016
  * Created by Peter Varholak on 20. 2. 2016.
  */
-public interface ITimerObserver {
+public interface ITimerSubject {
+    void registerObserver(ITimerObserver o);
     void setupTimer(int maxTime);
     void updateTime(int value);
 }

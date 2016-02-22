@@ -6,13 +6,17 @@ import android.os.Handler;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.okay_pc.myapplication.enums.Difficulty;
+import com.example.okay_pc.myapplication.enums.GameMode;
+import com.example.okay_pc.myapplication.interfaces.IInputObserver;
+
 /**
  * Akademia SOVY project
  * <p/>
  * Copyright - 2016
  * Created by Peter Varholak on 5. 2. 2016.
  */
-public class GameMaster {
+public class GameMaster implements IInputObserver{
 
     //RECOMPILE IF CHANGED!
     public static final int MAX_OPTION_AMOUNT = 5;
@@ -25,7 +29,8 @@ public class GameMaster {
 
     private Activity activity;
     private Evaluator ev;
-    private SceneBuilder sb;
+    private SceneManager sm;
+    private InputHandler ih;
     private Timer timer;
     private Handler handler;
 
@@ -37,35 +42,29 @@ public class GameMaster {
         gameFinished = false;
 
         ev = new Evaluator();
-        sb = new SceneBuilder(activity);
+        ih = new InputHandler();
+        sm = new SceneManager(activity, ih);
         timer = new Timer(this);
-        timer.registerObserver(sb);
         handler = new Handler();
+
+        setObservers();
     }
 
     public static int getCurrentEquationMembersAmount() {
         return currentEquationMembersAmount;
     }
+
     public static GameMode getGameMode() {
         return gameMode;
     }
 
-    public static boolean isGameFinished() {
-        return gameFinished;
-    }
-
-    private void setGameMode() {
-        Intent intent = activity.getIntent();
-        gameMode = (GameMode) intent.getSerializableExtra("gameMode");
-    }
-
     public void startLevel() {
-        sb.createLevel();
+        sm.createLevel();
         timer.startTime(10);
     }
 
     public void levelCompleted() {
-        if (ev.isEquationCorrect(sb.getResultValue(), sb.getEquationNumbersValue())) {
+        if (ev.isEquationCorrect(sm.getResultValue(), sm.getEquationNumbersValue())) {
             levelsCompleted++;
             updateScore();
             checkDifficultyIncrease();
@@ -75,14 +74,24 @@ public class GameMaster {
         }
     }
 
+    private void setGameMode() {
+        Intent intent = activity.getIntent();
+        gameMode = (GameMode) intent.getSerializableExtra("gameMode");
+    }
+
+    private void setObservers() {
+        timer.registerObserver(sm);
+        ih.registerObserver(this);
+    }
+
     private void updateScore() {
-        sb.updateScore(levelsCompleted + timer.getScoreValue());
+        sm.updateScore(levelsCompleted + timer.getScoreValue());
     }
 
     protected void gameOver() {
         //TODO: Add GAME OVER screen
         //TODO: Debug purposes, remove after Game over is created
-        //TODO: SceneBuilder?
+        //TODO: SceneManager?
         Toast.makeText(activity.getBaseContext(), "GAME OVER", Toast.LENGTH_SHORT).show();
     }
 
@@ -91,27 +100,29 @@ public class GameMaster {
             levelsCompleted == Difficulty.HARD.getValue() ||
             levelsCompleted == Difficulty.EXTREME.getValue())
         {
-            sb.increaseEquationSize();
+            sm.increaseEquationSize();
             currentEquationMembersAmount++;
         }
     }
 
+    @Override
     public void equationNumberPressed(Button b) {
         if (gameFinished) {
             return;
         }
 
-        sb.equationNumberPressed(b);
+        sm.equationNumberPressed(b);
     }
 
+    @Override
     public void optionNumberPressed(Button b) {
         if (gameFinished) {
             return;
         }
 
-        sb.optionNumberPressed(b);
+        sm.optionNumberPressed(b);
 
-        if (sb.isEquationFull()) {
+        if (sm.isEquationFull()) {
             evaluateLevel();
         }
     }

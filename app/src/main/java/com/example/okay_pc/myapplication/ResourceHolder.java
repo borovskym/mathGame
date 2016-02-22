@@ -24,8 +24,11 @@ public class ResourceHolder {
     private ArrayList<Button> options;
     private ProgressBar timer;
 
-    public ResourceHolder(Activity activity) {
+    private InputHandler ih;
+
+    public ResourceHolder(Activity activity, InputHandler ih) {
         this.activity = activity;
+        this.ih = ih;
         setReferences();
     }
 
@@ -96,7 +99,7 @@ public class ResourceHolder {
             equationNumbers.add((Button) activity.findViewById(resID));
             equationNumbers.get(i - 1).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    ((GameScreen)activity).equationNumberPressed(v);
+                    ih.equationNumberPressed(v);
                 }
             });
         }
@@ -125,7 +128,7 @@ public class ResourceHolder {
             options.add((Button) activity.findViewById(resID));
             options.get(i - 1).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    ((GameScreen)activity).optionNumberPressed(v);
+                    ih.optionNumberPressed(v);
                 }
             });
         }

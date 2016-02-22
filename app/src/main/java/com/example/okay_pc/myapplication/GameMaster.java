@@ -1,6 +1,7 @@
 package com.example.okay_pc.myapplication;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.widget.Button;
@@ -24,6 +25,7 @@ public class GameMaster implements IInputObserver{
 
     private static int currentEquationMembersAmount;
     private int levelsCompleted;
+    private Difficulty gameState;
     private static GameMode gameMode;
     private static boolean gameFinished;
 
@@ -38,6 +40,7 @@ public class GameMaster implements IInputObserver{
         this.activity = activity;
         currentEquationMembersAmount = 2;
         levelsCompleted = 0;
+        gameState = Difficulty.EASY;
         setGameMode();
         gameFinished = false;
 
@@ -60,7 +63,7 @@ public class GameMaster implements IInputObserver{
 
     public void startLevel() {
         sm.createLevel();
-        timer.startTime(10);
+        timer.startTime(gameState.getSeconds());
     }
 
     public void levelCompleted() {
@@ -85,7 +88,9 @@ public class GameMaster implements IInputObserver{
     }
 
     private void updateScore() {
-        sm.updateScore(levelsCompleted + timer.getScoreValue());
+        int score = sm.getScoreValue();
+        score += (gameState == Difficulty.EXTREME) ? timer.getScoreValue() * 2 : timer.getScoreValue();
+        sm.updateScore(score);
     }
 
     protected void gameOver() {
@@ -96,12 +101,16 @@ public class GameMaster implements IInputObserver{
     }
 
     private void checkDifficultyIncrease() {
-        if (levelsCompleted == Difficulty.NORMAL.getValue() ||
-            levelsCompleted == Difficulty.HARD.getValue() ||
-            levelsCompleted == Difficulty.EXTREME.getValue())
-        {
+        if (levelsCompleted == Difficulty.NORMAL.getValue()){
+            gameState = Difficulty.NORMAL;
             sm.increaseEquationSize();
             currentEquationMembersAmount++;
+        } else if(levelsCompleted == Difficulty.HARD.getValue()){
+            gameState = Difficulty.HARD;
+            sm.increaseEquationSize();
+            currentEquationMembersAmount++;
+        } else if(levelsCompleted == Difficulty.EXTREME.getValue()) {
+            gameState = Difficulty.EXTREME;
         }
     }
 

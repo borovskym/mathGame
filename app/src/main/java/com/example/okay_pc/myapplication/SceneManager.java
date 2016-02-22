@@ -27,6 +27,9 @@ public class SceneManager implements ITimerObserver{
     public int getResultValue() {
         return res.getResultValue();
     }
+    public int getScoreValue() {
+        return res.getScoreValue();
+    }
     public int[] getEquationNumbersValue() {
         return res.getEquationNumbersValue();
     }

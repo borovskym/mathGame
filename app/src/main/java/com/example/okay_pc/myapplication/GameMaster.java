@@ -97,7 +97,8 @@ public class GameMaster implements IInputObserver{
         //TODO: Add GAME OVER screen
         //TODO: Debug purposes, remove after Game over is created
         //TODO: SceneManager?
-        Toast.makeText(activity.getBaseContext(), "GAME OVER", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(activity.getBaseContext(), "GAME OVER", Toast.LENGTH_SHORT).show();
+        PopUp dialog = new PopUp("Game Over", activity, 0);
     }
 
     private void checkDifficultyIncrease() {

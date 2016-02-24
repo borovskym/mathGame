@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.okay_pc.myapplication.enums.DialogOption;
 import com.example.okay_pc.myapplication.interfaces.ITimerObserver;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class SceneManager implements ITimerObserver{
         sb.resetDifficulty();
     }
 
-    public void updateScore(int value) {
+    public void displayScore(int value) {
         res.getScore().setText(String.format("%d", value));
     }
 
@@ -81,6 +82,14 @@ public class SceneManager implements ITimerObserver{
         sb.createLevel();
     }
 
+    public void createGameOverDialog(boolean newScore, int currentScore, Activity activity) {
+        String dialogTitle = newScore ? "New High Score!" : "Game Over";
+        System.out.println(newScore);
+        System.out.println(dialogTitle);
+        String dialogMessage = "Your score this game was: " + currentScore;
+        PopUp dialog = new PopUp(DialogOption.GAME_OVER, dialogTitle, dialogMessage, activity);
+    }
+
     private void fillButton(Button b, CharSequence text) {
         b.setText(text);
         b.setBackgroundResource(R.drawable.game_button);
@@ -103,7 +112,6 @@ public class SceneManager implements ITimerObserver{
     public void updateTime(int value) {
         res.getTimer().setProgress(value);
     }
-
 
     /**
      * Akademia SOVY project

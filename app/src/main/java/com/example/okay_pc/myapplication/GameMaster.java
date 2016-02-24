@@ -1,11 +1,9 @@
 package com.example.okay_pc.myapplication;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.okay_pc.myapplication.enums.Difficulty;
 import com.example.okay_pc.myapplication.enums.GameMode;
@@ -28,8 +26,10 @@ public class GameMaster implements IInputObserver{
     private Difficulty gameState;
     private static GameMode gameMode;
     private static boolean gameFinished;
+    private int currentScore;
 
     private Activity activity;
+    private SaveManager gameSaver;
     private Evaluator ev;
     private SceneManager sm;
     private InputHandler ih;
@@ -43,8 +43,10 @@ public class GameMaster implements IInputObserver{
         gameState = Difficulty.EASY;
         setGameMode();
         gameFinished = false;
+        currentScore = 0;
 
         ev = new Evaluator();
+        gameSaver = new SaveManager(activity);
         ih = new InputHandler();
         sm = new SceneManager(activity, ih);
         timer = new Timer(this);
@@ -88,17 +90,33 @@ public class GameMaster implements IInputObserver{
     }
 
     private void updateScore() {
-        int score = sm.getScoreValue();
-        score += (gameState == Difficulty.EXTREME) ? timer.getScoreValue() * 2 : timer.getScoreValue();
-        sm.updateScore(score);
+        currentScore += (gameState == Difficulty.EXTREME) ? timer.getScoreValue() * 2 : timer.getScoreValue();
+        sm.displayScore(currentScore);
     }
 
     protected void gameOver() {
-        //TODO: Add GAME OVER screen
-        //TODO: Debug purposes, remove after Game over is created
-        //TODO: SceneManager?
-        //Toast.makeText(activity.getBaseContext(), "GAME OVER", Toast.LENGTH_SHORT).show();
-        PopUp dialog = new PopUp("Game Over", activity, 0);
+        boolean newScore = isNewScore();
+        if (newScore) {
+            saveScore();
+        }
+        sm.createGameOverDialog(newScore,currentScore, activity);
+    }
+
+    private void saveScore() {
+        if (gameMode == GameMode.ADDITION) {
+            gameSaver.setAdditionScore(currentScore);
+        } else if (gameMode == GameMode.MULTIPLICATION) {
+            gameSaver.setMultiplicationScore(currentScore);
+        }
+    }
+
+    private boolean isNewScore() {
+        if (gameMode == GameMode.ADDITION) {
+            return gameSaver.getAdditionScore() < currentScore;
+        } else if (gameMode == GameMode.MULTIPLICATION) {
+            return gameSaver.getMultiplicationScore() < currentScore;
+        }
+        return false;
     }
 
     private void checkDifficultyIncrease() {

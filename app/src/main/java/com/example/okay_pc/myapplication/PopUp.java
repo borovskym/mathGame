@@ -1,11 +1,13 @@
 package com.example.okay_pc.myapplication;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-import com.example.okay_pc.myapplication.enums.GameMode;
+import com.example.okay_pc.myapplication.enums.DialogOption;
 
 /**
  * Created by Okay-PC on 12.2.2016.
@@ -14,30 +16,43 @@ public class PopUp {
 
     private Activity activity;
 
-    private String title;
-    private String message;
+    private DialogOption option;
+    private String titleText;
+    private String messageText;
 
-    public PopUp(String title, Activity activity, int score) {
+    public PopUp(DialogOption option, String title, String message, Activity activity) {
+        this.option = option;
+        this.titleText = title;
+        this.messageText = message;
         this.activity = activity;
-        this.title = title;
-        this.message = "Your score is " + score;
 
-        showPopUp();
+        createDialog();
     }
 
-    private  void showPopUp(){
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
-        helpBuilder.setTitle(title);
-        helpBuilder.setMessage(message);
-        helpBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    private void createDialog() {
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.dialog_custom);
+
+        TextView title = (TextView) dialog.findViewById(R.id.tv_title);
+        TextView message = (TextView) dialog.findViewById(R.id.tv_message);
+        Button back = (Button) dialog.findViewById(R.id.b_back);
+
+        title.setText(titleText);
+        message.setText(messageText);
+
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(activity, MainActivity.class);
-                activity.startActivity(intent);
+            public void onClick(View v) {
+                if (option == DialogOption.GAME_OVER) {
+                    Intent intent = new Intent(activity, MainActivity.class);
+                    activity.startActivity(intent);
+                } else if (option == DialogOption.HIGH_SCORE || option == DialogOption.ABOUT) {
+                    dialog.dismiss();
+                }
             }
         });
 
-        AlertDialog helpDialog = helpBuilder.create();
-        helpDialog.show();
+        dialog.setCancelable(false);
+        dialog.show();
     }
 }

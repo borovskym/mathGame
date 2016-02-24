@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.okay_pc.myapplication.enums.GameMode;
+
 import java.util.ArrayList;
 
 /**
@@ -30,6 +32,8 @@ public class ResourceHolder {
         this.activity = activity;
         this.ih = ih;
         setReferences();
+        setButtons();
+        setSigns();
     }
 
     //handlers block
@@ -109,6 +113,8 @@ public class ResourceHolder {
 
     private ArrayList<TextView> getEquationSignsReference() {
         ArrayList<TextView> equationSigns = new ArrayList<>();
+        GameMode gameMode = GameMaster.getGameMode();
+        TextView sign;
 
         for (int i = 1; i <= GameMaster.MAX_EQUATION_MEMBERS_AMOUNT - 1; i++) {
             String signID = "tv_equation_sign" + i;
@@ -134,5 +140,25 @@ public class ResourceHolder {
         }
 
         return options;
+    }
+
+    private void setButtons() {
+        for (Button button : equationNumbers) {
+            if (GameMaster.getGameMode() == GameMode.ADDITION) {
+                button.setText(String.format("%d", 0));
+            } else if (GameMaster.getGameMode() == GameMode.MULTIPLICATION) {
+                button.setText(String.format("%d", 1));
+            }
+        }
+    }
+
+    private void setSigns() {
+        for (TextView sign : equationSigns) {
+            if (GameMaster.getGameMode() == GameMode.ADDITION) {
+                sign.setText(activity.getResources().getString(R.string.equation_plus));
+            } else if (GameMaster.getGameMode() == GameMode.MULTIPLICATION) {
+                sign.setText(activity.getResources().getString(R.string.equation_multiply));
+            }
+        }
     }
 }

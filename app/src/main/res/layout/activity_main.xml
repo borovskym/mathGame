@@ -39,13 +39,19 @@
         <Button
             style="@style/MenuButton"
             android:id="@+id/button1"
-            android:text="@string/play_button" />
+            android:text="@string/button_play" />
 
         <Button
             style="@style/MenuButton"
             android:id="@+id/button2"
             android:layout_marginTop="30dp"
-            android:text="@string/high_score_button" />
+            android:text="@string/button_high_score" />
+
+        <Button
+            style="@style/MenuButton"
+            android:id="@+id/button3"
+            android:layout_marginTop="30dp"
+            android:text="@string/button_about"/>
     </LinearLayout>
 
     <LinearLayout

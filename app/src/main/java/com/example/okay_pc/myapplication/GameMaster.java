@@ -94,7 +94,8 @@ public class GameMaster implements IInputObserver{
         sm.displayScore(currentScore);
     }
 
-    protected void gameOver() {
+    public void gameOver() {
+        timer.stopTime();
         boolean newScore = isNewScore();
         if (newScore) {
             saveScore();

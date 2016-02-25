@@ -23,6 +23,7 @@
     </style>
     <style name="ClickableButton" parent="@style/GameButton">
         <item name="android:background">@drawable/game_button</item>
+        <item name="android:layout_weight">0.2</item>
     </style>
     <style name="FreeButton" parent="@style/GameButton">
         <item name="android:background">@drawable/game_button_free</item>

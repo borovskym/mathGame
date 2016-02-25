@@ -34,6 +34,7 @@ public class ResourceHolder {
         setReferences();
         setButtons();
         setSigns();
+        setButtonSize();
     }
 
     //handlers block
@@ -159,6 +160,18 @@ public class ResourceHolder {
             } else if (GameMaster.getGameMode() == GameMode.MULTIPLICATION) {
                 sign.setText(activity.getResources().getString(R.string.equation_multiply));
             }
+        }
+    }
+
+    private void setButtonSize(){
+        int size = options.get(0).getWidth();
+        for (Button b : equationNumbers) {
+            b.setWidth(size);
+            b.setHeight(size);
+        }
+
+        for (Button b : options) {
+            b.setHeight(size);
         }
     }
 }

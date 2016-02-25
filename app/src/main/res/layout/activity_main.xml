@@ -18,6 +18,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp">
 
+
         <ImageView
             android:contentDescription="Logo"
             android:layout_width="wrap_content"
@@ -63,13 +64,5 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
-        <ImageButton
-            android:contentDescription="Sound icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button_sound"
-            android:background="@drawable/volume_android"
-            android:clickable="true"
-            android:layout_gravity="end" />
     </LinearLayout>
 </RelativeLayout>

@@ -14,9 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/frameLayout"
+        android:layout_marginTop="235dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp">
+        android:layout_centerHorizontal="true">
 
 
         <ImageView
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/img_logo"
             android:background="@drawable/logo_android"
-            android:layout_gravity="top|center_horizontal" />
+            android:layout_gravity="right|top" />
     </FrameLayout>
 
     <LinearLayout
@@ -35,7 +35,7 @@
         android:id="@+id/linearLayout"
         android:layout_below="@+id/frameLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp">
+        android:layout_marginTop="90dp">
 
         <Button
             style="@style/MenuButton"

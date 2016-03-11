@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayAbout() {
         String dialogTitle = "ABOUT";
-        String dialogMessage = "Created by:\nPeter Varhoľák\nMichal Borovský\nMartin Krotký";
+        String dialogMessage = "Created by:\nPeter Varhoľák\nMichal Borovský";
         PopUp dialog = new PopUp(DialogOption.ABOUT, dialogTitle, dialogMessage, this);
     }
 }
